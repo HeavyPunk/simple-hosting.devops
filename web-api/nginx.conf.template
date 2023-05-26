@@ -12,8 +12,13 @@ http {
             root ${ASSETS_PATH};
             include  /etc/nginx/mime.types;
         }
-        
+
         location / {
+            root ${ASSETS_PATH}/assets/;
+            include  /etc/nginx/mime.types;
+        }
+        
+        location /api/ {
             proxy_pass http://localhost:9000;
         }
     }
