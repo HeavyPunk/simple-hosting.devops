@@ -1,0 +1,20 @@
+
+user kirieshki;
+
+events {}
+http {
+    server {
+
+        listen 80;
+        server_name example.com;
+        
+        location /assets/ {
+            root ${ASSETS_PATH};
+            include  /etc/nginx/mime.types;
+        }
+        
+        location / {
+            proxy_pass http://localhost:9000;
+        }
+    }
+}
