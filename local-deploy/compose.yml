@@ -14,3 +14,7 @@ services:
     image: kirieshki/simple-hosting.web2:local-preview-09.18.23
     ports:
       - "9000:9000"
+  compositor:
+    image: kirieshki/simple-hosting.compositor:local-preview-09.18.23
+    ports:
+      - "8080:8080"
