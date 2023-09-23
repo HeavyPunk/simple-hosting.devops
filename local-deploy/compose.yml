@@ -11,7 +11,7 @@ services:
     volumes:
       - .:/var/lib/postgresql/data
   web:
-    image: kirieshki/simple-hosting.web2:local-preview-09.19.23
+    image: kirieshki/simple-hosting.web2:local-preview-09.23.23
     ports:
       - "9000:9000"
   compositor:
