@@ -4,14 +4,14 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: simplehosting
+      POSTGRES_DB: simplehosting_slick
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - .:/var/lib/postgresql/data
   web:
-    image: kirieshki/simple-hosting.web2:2023.11.22.3
+    image: kirieshki/simple-hosting.web2:2023.11.24.1
     ports:
       - "9000:9000"
   compositor:
