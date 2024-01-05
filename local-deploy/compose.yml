@@ -1,6 +1,7 @@
 services:
   database:
     image: "postgres"
+    network_mode: "host"
     ports:
       - "5432:5432"
     environment:
@@ -11,10 +12,15 @@ services:
     volumes:
       - .:/var/lib/postgresql/data
   web:
-    image: kirieshki/simple-hosting.web2:2023.11.27.2
+    image: kirieshki/simple-hosting.web2:2023.12.02.1
+    network_mode: "host"
     ports:
       - "9000:9000"
   compositor:
     image: kirieshki/simple-hosting.compositor:latest
+    network_mode: "host"
     ports:
       - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
