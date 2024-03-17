@@ -5,16 +5,65 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_DB: simplehosting_slick
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: pUserRandom_1789_generated 
+      POSTGRES_PASSWORD: N8ckcoeNYRrwe28WVAS5KBdvdZ9YVYeR 
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - .:/var/lib/postgresql/data
+
   web:
-    image: kirieshki/simple-hosting.web2:2023.11.27.2
+    image: kirieshki/simple-hosting.web2:2024.01.23.1
+    network_mode: "host"
     ports:
       - "9000:9000"
+
   compositor:
-    image: kirieshki/simple-hosting.compositor:latest
+    image: kirieshki/simple-hosting.compositor:2024.01.17-amd64
+    network_mode: "host"
     ports:
       - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  rabbitmq:
+    image: rabbitmq:3.10.7-management
+    network_mode: "host"
+    hostname: rabbitmq
+    restart: always
+    environment:
+      - RABBITMQ_DEFAULT_USER=simplehosting_rabbitmq
+      - RABBITMQ_DEFAULT_PASS=s190_9_0923imp76l11ehosting_rabb1i8tmq
+      - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit log_levels [{connection,error},{default,error}] disk_free_limit 2147483648
+    volumes:
+      - ./rabbitmq:/var/lib/rabbitmq
+    ports:
+      - 15672:15672
+      - 5672:5672
+  
+  redis:
+    image: redis/redis-stack-server:latest
+    network_mode: "host"
+    hostname: redis-stack-server
+    restart: always
+    ports:
+      - 6379:6379
+
+  s3_storage:
+    image: quay.io/minio/minio
+    network_mode: "host"
+    ports:
+      - "9124:9124"
+      - "9421:9421"
+    environment:
+      MINIO_ROOT_USER: "simplehostingMinioDev"
+      MINIO_ROOT_PASSWORD: "s_impl_ehos1t?ingMi824nioDev"
+    volumes:
+      - ./minio:/data
+    command: server /data --console-address ":9124" --address ":9421" 
+
+  front:
+    image: kirieshki/simple-hosting.web.front:25.01.24.1
+    network_mode: "host"
+    ports:
+      - "80:80" 
+
